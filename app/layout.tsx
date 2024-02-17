@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Sidebar } from "@/components/sidebar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +17,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* put the side bar to the left of the content of the page, like twitter */}
+        <div className="flex flex-row w-screen h-screen p-0 m-0">
+          <div className="static">
+            <Sidebar />
+          </div>
+          <main className="w-full flex p-7">
+            {children}
+          </main>
+        </div>
+      </body>
     </html>
   );
 }
