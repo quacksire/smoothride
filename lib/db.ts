@@ -23,7 +23,9 @@ export type Post = {
     agency: string;
 }
 
+import exp from 'constants';
 import { v4 as uuidv4 } from 'uuid'
+import { generateUsername } from "unique-username-generator";
 
 export async function parseRequest(dbRqr: any) {
 
@@ -53,7 +55,6 @@ export async function parseRequest(dbRqr: any) {
 
 }
 export async function getAllPosts() {
-    console.log(process.env.DB)
 
     const options = {
         method: 'POST',
@@ -126,6 +127,37 @@ export async function createPost({author, type, description, image, agency}: Pos
         method: 'POST',
         headers: {'Content-Type': 'application/json', Authorization: `Bearer ${process.env.CF_API_KEY}`},
         body: `{"sql":"INSERT INTO posts (id, author, type, title, description, image, created_at, agency) VALUES ('${uuid}', '${author}', '${type}', '${description}', ${img}, '${created_at}', '${agency}')"}`,
+        cache: "no-cache"
+    };
+
+    // @ts-ignore
+    let dbRqr = await fetch(`https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/d1/database/${process.env.CF_D1_ID}/query`, options)
+
+    return await parseRequest(dbRqr)
+}
+
+export async function getUsername(kid: String) {
+
+    const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', Authorization: `Bearer ${process.env.CF_API_KEY}`},
+        body: `{"sql":"SELECT * FROM usernames WHERE kid = '${kid}"}`,
+    };
+
+    // @ts-ignore
+    let dbRqr = await fetch(`https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/d1/database/${process.env.CF_D1_ID}/query`, options)
+
+    return await parseRequest(dbRqr)
+}
+
+export async function createUsername(kid: String) {
+    let username = generateUsername();
+
+
+    let options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', Authorization: `Bearer ${process.env.CF_API_KEY}`},
+        body: `{"sql":"INSERT INTO usernames (kid, username) VALUES ('${kid}')"}`,
         cache: "no-cache"
     };
 

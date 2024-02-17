@@ -1,6 +1,6 @@
 
 
-export default function Layout({children}) {
+export default function Layout({children}: {children: React.ReactNode}) {
     return (
     <main className="flex h-screen flex-col items-center justify-between">
         <div className="bg-white dark:bg-gray-900">

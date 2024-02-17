@@ -2,12 +2,15 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Info, Home, PlusCircle } from "lucide-react"
+import { Info, Home, PlusCircle, CircleUser } from "lucide-react"
 import { SignInButton, Profile, ProfileMenu, LogInOrOutButton} from "./kinde"
 
+
 import Link from "next/link"
+import NewIssueForm from "./forms/new-issue"
 
 export function Sidebar() {
+
     return (
         <div className="w-[300px]">
             <div className="pb-12 w-full">
@@ -20,6 +23,12 @@ export function Sidebar() {
                                     <p className="text-lg">Home</p>
                                 </Button>
                             </Link>
+                            <Link href="/profile">
+                                <Button variant="ghost" className="w-full justify-start rounded-3xl space-x-3 h-10">
+                                    <CircleUser size={24} />
+                                    <p className="text-lg">Profile</p>
+                                </Button>
+                            </Link>
                             <Link href="/about">
                                 <Button variant="ghost" className="w-full justify-start rounded-3xl space-x-3 h-10">
                                     <Info size={24} />
@@ -27,12 +36,14 @@ export function Sidebar() {
                                 </Button>
                             </Link>
                             <div className="py-2 space-y-3 flex flex-col">
-                            <Button className="rounded-3xl justify-center w-full h-12">
-                                <div className="space-x-4 flex flex-row">
-                                <PlusCircle size={24}/>
-                                <p className="text-[0.9rem] text-base font-bold">Add Issue</p>
-                                </div>
-                            </Button>
+                                <NewIssueForm>
+                                    <Button className="rounded-3xl justify-center w-full h-12">
+                                        <div className="space-x-4 flex flex-row">
+                                        <PlusCircle size={24}/>
+                                        <p className="text-[0.9rem] text-base font-bold">Add Issue</p>
+                                        </div>
+                                    </Button>
+                                </NewIssueForm>
                             <LogInOrOutButton />
                             </div>
                         </div>
