@@ -47,7 +47,7 @@ export default function PostItem({ card} : { card: Post }) {
                             </Map>
                     </CardContent>
                     <CardFooter className="flex justify-start">
-                        <Button variant="ghost" onClick={() => {
+                        <Button variant="ghost" onClick={async () => {
                             let newUpvote = !upvoted;
                             if (downvoted) {
                                 setDownvote(false); 
@@ -57,13 +57,14 @@ export default function PostItem({ card} : { card: Post }) {
                                 card.voteCount = 0;
                             }
                             card.voteCount = newUpvote ? card.voteCount + 1 : card.voteCount - 1;
+                            await updatePost(card.id, card.voteCount);
                             console.log(newUpvote);
                             setUpvote(newUpvote);
                             }}>
                             {upvoted ? <ArrowBigUp color="#ff6000" fill="#ff6000"/> : <ArrowBigUp/>}
                         </Button>
                         <p>{card.voteCount ? card.voteCount : 0}</p>
-                        <Button variant="ghost" onClick={() => {
+                        <Button variant="ghost" onClick={async () => {
                             let newDownvote = !downvoted;
                             if (upvoted) {
                                 setUpvote(false);
@@ -73,7 +74,7 @@ export default function PostItem({ card} : { card: Post }) {
                                 card.voteCount = 0;
                             }
                             card.voteCount = newDownvote ? card.voteCount - 1 : card.voteCount + 1;
-                            updatePost(card.id, card.voteCount);
+                            await updatePost(card.id, card.voteCount);
                             console.log(newDownvote);
                             setDownvote(newDownvote);
                             }}>

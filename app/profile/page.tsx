@@ -71,11 +71,11 @@ export default async function Home() {
 						</div>
 						<div className="flex flex-col space-y-1 justify-center items-center -mt-12 w-full">
 							<span className="text-md whitespace-nowrap text-gray-800 font-semibold text-4xl">{user.email}</span>
-							<p className="text-2xl text-gray-500">
+							<p className="text-xl text-gray-500">
 								description here
 							</p>
 							<div
-								className="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid text-4xl">
+								className="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid text-2xl">
 								<span className="text-center px-2"><span className="font-bold text-gray-700">27</span><span className="text-gray-600"> issues</span></span>
 							</div>
 						</div>

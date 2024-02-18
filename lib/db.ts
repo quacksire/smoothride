@@ -127,6 +127,8 @@ id	author	vote_count	title	description	image	created_at	agency
 
 export async function updatePost(id: string, voteCount: number) {
 
+    console.log(voteCount)
+
     // add the post to the "posts" table in the database
     let options = {
         method: 'POST',
