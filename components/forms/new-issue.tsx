@@ -161,7 +161,7 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
                                         toast.toast({ title: "Issue created", description: "Your issue has been created!" })
                                         setOpen(false)
                                         setTimeout(() => {
-                                            router.push(`/issue/${uuid}`)
+                                            router.refresh()
                                         }, 1000)
                                     })
                                 }
