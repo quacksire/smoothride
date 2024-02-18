@@ -39,8 +39,8 @@ export function Sidebar() {
                                 <NewIssueForm>
                                     <Button className="rounded-3xl justify-center w-full h-12">
                                         <div className="space-x-4 flex flex-row">
-                                        <PlusCircle size={24}/>
-                                        <p className="text-[0.9rem] text-base font-bold">Add Issue</p>
+                                            <PlusCircle size={24}/>
+                                            <p className="text-[0.9rem] text-base font-bold">Add Issue</p>
                                         </div>
                                     </Button>
                                 </NewIssueForm>

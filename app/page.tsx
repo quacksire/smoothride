@@ -38,7 +38,7 @@ export default function Home() {
             {/* add the cards */}
             <div className="grid grid-cols-1 gap-10">
                 {cards.map((card, index) => (
-                    <Card className="w-[700px]" key={index}>
+                    <Card className="w-[700px] rounded-2xl" key={index}>
                     <CardHeader>
                       <CardTitle>{card.title}</CardTitle>
                       <CardDescription>reported by @{card.user}</CardDescription>
