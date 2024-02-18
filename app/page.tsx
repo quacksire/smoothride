@@ -18,7 +18,7 @@ export default function Home() {
     <main className="flex h-screen flex-col items-center justify-between">
         <ScrollArea className="h-full w-max">
           
-              
+              <NewPostFeed />
             
         </ScrollArea>
     </main>
