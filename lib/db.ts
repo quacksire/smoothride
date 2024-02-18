@@ -1,14 +1,4 @@
-/**
- * 
-- Posts:
-  - [post]
-    - id: uuid
-    - author: string
-    - title: string
-    - description: string
-    - type: string (road/transit/other)
-    - image: string?
- */
+'use server'
 
 // Create a type named Post that represents the structure of a post
 
@@ -95,6 +85,7 @@ export async function getPost(id: string) {
 }
 
 export async function createPost({id, author, description, image, title}: Post) {
+    
     /**
      * {
     id: string;

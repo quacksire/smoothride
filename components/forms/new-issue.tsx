@@ -88,83 +88,80 @@ const [open, setOpen] = React.useState(false)
 
         return (
         <>
+            {isAuthenticated && user ? (
+                <>
+                    <form className="space-y-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="title" className="text-right">
+                            Title
+                            </Label>
+                            <Input {...register("title")} id="title" placeholder="What's the issue?" className="col-span-3" />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="description" className="text-right">
+                            Description
+                            </Label>
+                            <Textarea {...register("description")} id="description" placeholder="Can you provide some more detail please?" className="col-span-3" />
+                        </div>
+                        {/* @ts-ignore */}
+                        <Button onClick={handleSubmit((data) => {
+                            setIsSubmitting(true)
+                            // remove all letters and spaces from car number
 
+                            console.log(data)
 
-                {isAuthenticated && user ? (
-                    <>
-                    
-                        <form className="space-y-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="title" className="text-right">
-                                Title
-                                </Label>
-                                <Input {...register("title")} id="title" placeholder="What's the issue?" className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="description" className="text-right">
-                                Description
-                                </Label>
-                                <Textarea {...register("description")} id="description" placeholder="Can you provide some more detail please?" className="col-span-3" />
-                            </div>
-                            {/* @ts-ignore */}
-                            <Button onClick={handleSubmit((data) => {
-                                setIsSubmitting(true)
-                                // remove all letters and spaces from car number
+                            let date = new Date()
 
-                                console.log(data)
-
-                                let date = new Date()
-
-                                let log = Post.safeParse({
-                                    title: data.title,
-                                    description: data.description,
-                                    author: user?.id,
+                            let log = Post.safeParse({
+                                title: data.title,
+                                description: data.description,
+                                author: user?.id,
+                            })
+                            if (!log.success) {
+                                log.error.issues.forEach((issue: { path: any[]; message: React.SetStateAction<string>; }) => {
+                                    issue.path.forEach((path: any) => {
+                                        switch (path) {
+                                            case "title":
+                                                setTitleError(issue.message)
+                                                break
+                                            case "desciption":
+                                                setDescriptionError(issue.message)
+                                                break
+                                        }
+                                    })
                                 })
-                                if (!log.success) {
-                                    log.error.issues.forEach((issue: { path: any[]; message: React.SetStateAction<string>; }) => {
-                                        issue.path.forEach((path: any) => {
-                                            switch (path) {
-                                                case "title":
-                                                    setTitleError(issue.message)
-                                                    break
-                                                case "desciption":
-                                                    setDescriptionError(issue.message)
-                                                    break
-                                            }
-                                        })
-                                    })
-                                } else {
-                                    setDescriptionError("")
-                                    setTitleError("")
-                                    setIsSubmitting(true)
-                                    let uuid = uuidv4()
-                                    createPost({
-                                        id: uuid,
-                                        title: data.title,
-                                        author: user?.id,
-                                        description: data.description,
-                                        image: data.image,
-                                    }).then(r => {
-                                        console.log(r)
-                                        setIsSubmitting(false)
-                                        router.push(`/post/${uuid}`)
-                                    })
-                                }
-                                console.log(log)
-                            })}
-                                disabled={isSubmitting}
-                                className={'mt-3 mb-3 w-full'}
-                            >
-                                {isSubmitting ? "Submitting..." : "Create Issue"}
-                            </Button>
-                        </form>
-                    </>
-                ) : (
-                    <div className="text-center">
-                        You need to be signed in to create a new issue
-                        <SignInButton className="w-full mx-3 mt-5" />
-                    </div>
-                )}
+                            } else {
+                                setDescriptionError("")
+                                setTitleError("")
+                                setIsSubmitting(true)
+                                let uuid = uuidv4()
+                                createPost({
+                                    id: uuid,
+                                    title: data.title,
+                                    author: user?.id,
+                                    description: data.description,
+                                    image: data.image,
+                                }).then(r => {
+                                    console.log(r)
+                                    setIsSubmitting(false)
+                                    router.push(`/post/${uuid}`)
+                                })
+                            }
+                            console.log(log)
+                        })}
+                            disabled={isSubmitting}
+                            className={'mt-3 mb-3 w-full'}
+                        >
+                            {isSubmitting ? "Submitting..." : "Create Issue"}
+                        </Button>
+                    </form>
+                </>
+            ) : (
+                <div className="text-center">
+                    You need to be signed in to create a new issue
+                    <SignInButton className="w-full mx-3 mt-5" />
+                </div>
+            )}
         </>
         )
     }
