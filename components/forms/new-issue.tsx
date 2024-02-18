@@ -31,6 +31,8 @@ import {
 import { Label } from "@/components/ui/label"
 import { createPost } from "@/lib/db";
 import { useToast } from "../ui/use-toast";
+import { Map, Marker } from "react-map-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 type PostType = {
     id: string;
@@ -67,11 +69,13 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
         formState: { errors },
     } = useForm()
 
-
     const Form = () => {
         const [titleError, setTitleError] = useState("")
         const [descriptionError, setDescriptionError] = useState("")
         const [isSubmitting, setIsSubmitting] = useState(false)
+
+        const [latLng, setlatLng] = useState<null | { lat: number, lng: number}>(null);
+
         const router = useRouter()
         const toast = useToast()
 
@@ -91,6 +95,26 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
                                     Description
                                 </Label>
                                 <Textarea {...register("description")} id="description" placeholder="Can you provide some more detail please?" className="col-span-3" />
+                            </div>
+                            <div className="w-full h-[300px] space-y-2 flex flex-col">
+                                <Label htmlFor="description" className="text-left">
+                                    Add a location
+                                </Label>
+                                <Map onClick={(e) => {
+                                    console.log(e)
+
+                                    setlatLng(e.lngLat)
+                                    // latitude = e.lngLat.lat
+                                    // longitude = e.lngLat.lng
+                                }} mapboxAccessToken="pk.eyJ1IjoiY2hpbGRxdWFjayIsImEiOiJjbHM2a2s2dXQwdmVzMmxxaHN0dXEzaGRsIn0.RVy7AMo3FChS0lsSkJcyPg"
+                                mapStyle="mapbox://styles/mapbox/navigation-day-v1"
+                                initialViewState={{latitude:37.41079, longitude:-122.03106, zoom: 12 }}
+                                style={{ width: "100%", height: "300px" }}
+                                >
+                                
+                                {latLng ? <Marker latitude={latLng.lat} longitude={latLng.lng}/> : null}
+
+                                </Map>
                             </div>
                             {/* @ts-ignore */}
                             <Button onClick={handleSubmit((data) => {
@@ -126,13 +150,14 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
                                     createPost({
                                         id: uuid,
                                         title: data.title,
+                                        voteCount: 0,
                                         author: user?.id,
                                         description: data.description,
                                         image: data.image,
                                     }).then(r => {
                                         console.log(r)
                                         setIsSubmitting(false)
-                                        toast.toast({ title: "Issue created", description: "Your issue has been created" })
+                                        toast.toast({ title: "Issue created", description: "Your issue has been created!" })
                                         setOpen(false)
                                         setTimeout(() => {
                                             router.push(`/issue/${uuid}`)
@@ -167,7 +192,7 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
                 <DialogTrigger asChild>
                     {children}
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className="sm:max-w-[600px]">
                     <DialogHeader>
                         <DialogTitle>New Issue</DialogTitle>
                     </DialogHeader>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { useState } from "react";
 import { updatePost } from "@/lib/db";
+import { Map } from "react-map-gl";
 
 export default function PostItem({ card} : { card: Post }) {
 
@@ -22,6 +23,12 @@ export default function PostItem({ card} : { card: Post }) {
                         <p>
                         {card.description}
                         </p>
+
+                        <div className="px-4 py-4 rounded-2xl">
+                            <Map  mapboxAccessToken="pk.eyJ1IjoiY2hpbGRxdWFjayIsImEiOiJjbHM2a2s2dXQwdmVzMmxxaHN0dXEzaGRsIn0.RVy7AMo3FChS0lsSkJcyPg"
+                                    mapStyle="mapbox://styles/mapbox/streets-v10"
+                                    initialViewState={{latitude:37.41079, longitude:-122.03106, zoom: 12 }}></Map>
+                        </div>
                     </CardContent>
                     <CardFooter className="flex justify-start">
                         <Button variant="ghost" onClick={() => {
@@ -35,7 +42,6 @@ export default function PostItem({ card} : { card: Post }) {
                             }}>
                             {upvoted ? <ArrowBigUp color="#ff6000" fill="#ff6000"/> : <ArrowBigUp/>}
                         </Button>
-                        <p className="px-3">{card.voteCount}</p>
                         <Button variant="ghost" onClick={() => {
                             let newDownvote = !downvoted;
                             if (upvoted) {
