@@ -125,7 +125,7 @@ id	author	vote_count	title	description	image	created_at	agency
     return await parseRequest(dbRqr)
 }
 
-export async function updatePost({id, voteCount}: Post) {
+export async function updatePost(id: string, voteCount: number) {
 
     // add the post to the "posts" table in the database
     let options = {

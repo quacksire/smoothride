@@ -51,6 +51,10 @@ export default function PostItem({ card} : { card: Post }) {
                             let newUpvote = !upvoted;
                             if (downvoted) {
                                 setDownvote(false); 
+                                card.voteCount += 1;
+                            }
+                            if (!card.voteCount) {
+                                card.voteCount = 0;
                             }
                             card.voteCount = newUpvote ? card.voteCount + 1 : card.voteCount - 1;
                             console.log(newUpvote);
@@ -58,13 +62,18 @@ export default function PostItem({ card} : { card: Post }) {
                             }}>
                             {upvoted ? <ArrowBigUp color="#ff6000" fill="#ff6000"/> : <ArrowBigUp/>}
                         </Button>
+                        <p>{card.voteCount ? card.voteCount : 0}</p>
                         <Button variant="ghost" onClick={() => {
                             let newDownvote = !downvoted;
                             if (upvoted) {
                                 setUpvote(false);
+                                card.voteCount -= 1;
+                            }
+                            if (!card.voteCount) {
+                                card.voteCount = 0;
                             }
                             card.voteCount = newDownvote ? card.voteCount - 1 : card.voteCount + 1;
-                            updatePost(card);
+                            updatePost(card.id, card.voteCount);
                             console.log(newDownvote);
                             setDownvote(newDownvote);
                             }}>

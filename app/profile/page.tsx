@@ -56,7 +56,33 @@ export default async function Home() {
 
     return (
         
-        <ProfilePic/>        
+        <div className="w-[1000px] text-gray-500 sm:text-lg dark:text-gray-400 flex justify-center items-center">
+                    
+
+                    <div>
+
+			<div className="w-full flex  p-10 items-center justify-center"></div>
+				<div className="flex items-center p-4">
+					<div className="relative flex flex-col items-center w-full">
+						<div
+							className="h-24 w-24 md rounded-full relative avatar flex items-end justify-end text-purple-600 bg-white min-w-max absolute -top-16 flex text-purple-100 row-start-1 row-end-3 text-purple-650 ring-1 ring-white">
+							<ProfilePic/>
+							<div className="absolute"></div>
+						</div>
+						<div className="flex flex-col space-y-1 justify-center items-center -mt-12 w-full">
+							<span className="text-md whitespace-nowrap text-gray-800 font-semibold text-4xl">{user.email}</span>
+							<p className="text-2xl text-gray-500">
+								description here
+							</p>
+							<div
+								className="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid text-4xl">
+								<span className="text-center px-2"><span className="font-bold text-gray-700">27</span><span className="text-gray-600"> issues</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+                </div>       
     )
 
 
