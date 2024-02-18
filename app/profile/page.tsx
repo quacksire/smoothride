@@ -2,6 +2,7 @@ import { ProfilePic } from "@/components/kinde";
 import NeedSignIn from "@/components/needsigninpage";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Home() {
 
@@ -54,23 +55,40 @@ export default async function Home() {
 
 
     return (
-                <div className="text-gray-500 sm:text-lg dark:text-gray-400 flex justify-center items-center self-">
-                    <div className="flex flex-col items-center">
-                        <ProfilePic/>
-                        <h2 className="mb-4 text-4xl tracking-tight font-bold text-gray-900 dark:text-white justify-center">{user.email}</h2>
-                        <div className="flex flex-row space-x-4">
-                            <Link href="/profile/followers">
-                                    <p className="text-2xl font-bold text-gray-900 dark:text-white">69</p>
-                                    <p className="text-lg font-bold text-gray-500 dark:text-gray-400">Followers</p>
-                            </Link>
-                            <Link href="/profile/following">
-                                    <p className="text-2xl font-bold text-gray-900 dark:text-white">42</p>
-                                    <p className="text-lg font-bold text-gray-500 dark:text-gray-400">Following</p>
-                            </Link>
-                        </div>
-                        <p className="text-lg font-bold text-gray-500 dark:text-gray-400">{"I'm a lil goofy"}</p>
-                    </div>
+                <div className="w-[1000px] text-gray-500 sm:text-lg dark:text-gray-400 flex justify-center items-center self-">
+                    
+
+                    <div>
+	<div className='flex space-x-2 w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto'>
+		<div
+			className="card  min-w-sm border border-gray-100 transition-shadow shadow-xl hover:shadow-xl min-w-max">
+			<div className="w-full card__media"><img src="https://image.freepik.com/free-vector/abstract-binary-code-techno-background_1048-12836.jpg" className="h-48 w-96"></img></div>
+				<div className="  card__media--aside "></div>
+				<div className="flex items-center p-4">
+					<div className="relative flex flex-col items-center w-full">
+						<div
+							className="h-24 w-24 md rounded-full relative avatar flex items-end justify-end text-purple-600 min-w-max absolute -top-16 flex text-purple-100 row-start-1 row-end-3 text-purple-650 ring-1 ring-white">
+							<ProfilePic/>
+							<div className="absolute"></div>
+						</div>
+						<div className="flex flex-col space-y-1 justify-center items-center -mt-12 w-full">
+							<span className="text-md whitespace-nowrap text-gray-800 font-semibold">{user.email}</span>
+							<p className="text-sm text-gray-500">
+								description here
+							</p>
+							<div
+								className="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid">
+								<span className="text-center px-2"><span className="font-bold text-gray-700">56</span><span className="text-gray-600"> followers</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">112</span><span className="text-gray-600"> following</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">27</span><span className="text-gray-600"> repos</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
                 </div>
+
+                
     )
 
 
