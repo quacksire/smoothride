@@ -155,7 +155,7 @@ export function ProfilePic() {
     }
 
     return (
-    <Avatar>
+    <Avatar className="w-42 h-42">
         <AvatarImage src={user?.picture || `https://api.dicebear.com/7.x/rings/svg?seed=${user?.email}`} />
         <AvatarFallback></AvatarFallback>
     </Avatar>

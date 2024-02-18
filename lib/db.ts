@@ -7,6 +7,7 @@ export type Post = {
     author: string;
     title: string;
     description: string;
+    voteCount: number;
     image?: string;
     created_at?: string;
 }
@@ -97,6 +98,8 @@ export async function createPost({id, author, description, image, title}: Post) 
     created_at: string;
     agency: string;
 }
+
+id	author	vote_count	title	description	image	created_at	agency
      */
     let created_at = new Date().toISOString()
     let img = null
@@ -109,7 +112,21 @@ export async function createPost({id, author, description, image, title}: Post) 
     let options = {
         method: 'POST',
         headers: {'Content-Type': 'application/json', Authorization: `Bearer ${process.env.CF_API_KEY}`},
-        body: `{"sql":"INSERT INTO posts (id, author, type, title, description, image, created_at, agency) VALUES ('${id}', '${author}', 'NULL', '${title}','${description}', ${img}, '${created_at}', 'NULL')"}`,
+        body: `{"sql":"INSERT INTO posts (id, author, vote_count, title, description, image, created_at, agency) VALUES ('${id}', '${author}', 0, '${title}','${description}', ${img}, '${created_at}', 'NULL')"}`,
+    };
+
+    let dbRqr = await fetch(`https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/d1/database/${process.env.CF_D1_ID}/query`, options)
+
+    return await parseRequest(dbRqr)
+}
+
+export async function updatePost({id, voteCount}: Post) {
+
+    // add the post to the "posts" table in the database
+    let options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', Authorization: `Bearer ${process.env.CF_API_KEY}`},
+        body: `{"sql":"UPDATE posts SET vote_count = ${voteCount}, WHERE id = '${id}'"}`,
     };
 
     let dbRqr = await fetch(`https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}/d1/database/${process.env.CF_D1_ID}/query`, options)

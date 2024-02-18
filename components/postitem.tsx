@@ -5,6 +5,7 @@ import { ArrowBigUp, ArrowBigDown } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { useState } from "react";
+import { updatePost } from "@/lib/db";
 
 export default function PostItem({ card} : { card: Post }) {
 
@@ -28,16 +29,20 @@ export default function PostItem({ card} : { card: Post }) {
                             if (downvoted) {
                                 setDownvote(false); 
                             }
+                            card.voteCount = newUpvote ? card.voteCount + 1 : card.voteCount - 1;
                             console.log(newUpvote);
                             setUpvote(newUpvote);
                             }}>
                             {upvoted ? <ArrowBigUp color="#ff6000" fill="#ff6000"/> : <ArrowBigUp/>}
                         </Button>
+                        <p className="px-3">{card.voteCount}</p>
                         <Button variant="ghost" onClick={() => {
                             let newDownvote = !downvoted;
                             if (upvoted) {
                                 setUpvote(false);
                             }
+                            card.voteCount = newDownvote ? card.voteCount - 1 : card.voteCount + 1;
+                            updatePost(card);
                             console.log(newDownvote);
                             setDownvote(newDownvote);
                             }}>

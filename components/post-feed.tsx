@@ -2,7 +2,7 @@
 import { getAllPosts } from "@/lib/db";
 import PostItem from "./postitem";
 
-export default async function PostFeed() {
+export default async function NewPostFeed() {
     let posts = await getAllPosts();
     console.log(posts);
 
