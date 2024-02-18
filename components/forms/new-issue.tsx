@@ -194,7 +194,9 @@ const [open, setOpen] = React.useState(false)
         <DrawerHeader className="text-left">
           <DrawerTitle>New Issue</DrawerTitle>
         </DrawerHeader>
-        <Form />
+        <div className="p-5">
+            <Form />
+        </div>
       </DrawerContent>
     </Drawer>
   )
