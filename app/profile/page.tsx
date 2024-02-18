@@ -67,7 +67,7 @@ export default async function Home() {
 				<div className="flex items-center p-4">
 					<div className="relative flex flex-col items-center w-full">
 						<div
-							className="h-24 w-24 md rounded-full relative avatar flex items-end justify-end text-purple-600 min-w-max absolute -top-16 flex text-purple-100 row-start-1 row-end-3 text-purple-650 ring-1 ring-white">
+							className="h-24 w-24 md rounded-full relative avatar flex items-end justify-end text-purple-600 bg-white min-w-max absolute -top-16 flex text-purple-100 row-start-1 row-end-3 text-purple-650 ring-1 ring-white">
 							<ProfilePic/>
 							<div className="absolute"></div>
 						</div>
@@ -78,7 +78,7 @@ export default async function Home() {
 							</p>
 							<div
 								className="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid">
-								<span className="text-center px-2"><span className="font-bold text-gray-700">56</span><span className="text-gray-600"> followers</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">112</span><span className="text-gray-600"> following</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">27</span><span className="text-gray-600"> repos</span></span>
+								<span className="text-center px-2"><span className="font-bold text-gray-700">69</span><span className="text-gray-600"> followers</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">420</span><span className="text-gray-600"> following</span></span><span className="text-center px-2"><span className="font-bold text-gray-700">27</span><span className="text-gray-600"> issues</span></span>
 							</div>
 						</div>
 					</div>

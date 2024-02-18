@@ -10,11 +10,10 @@ import Link from "next/link"
 import NewIssueForm from "./forms/new-issue"
 
 export function Sidebar() {
-
     return (
         <div className="w-[300px]">
             <div className="pb-12 w-full">
-                <div className="space-y-4 py-4">
+                <div className="space-y-4 py-5">
                     <div className="px-3 py-2">
                         <div className="flex flex-col w-full px-4 py-2 space-y-1">
                             <Link href="/">
