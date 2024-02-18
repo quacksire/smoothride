@@ -151,9 +151,10 @@ export default function LoggingForm({ children }: { children?: React.ReactNode }
                                         id: uuid,
                                         title: data.title,
                                         voteCount: 0,
-                                        author: user?.id,
+                                        author: user.email ? user.email : "anonymous",
                                         description: data.description,
                                         image: data.image,
+                                        agency: latLng ? `${latLng.lat},${latLng.lng}` : null,
                                     }).then(r => {
                                         console.log(r)
                                         setIsSubmitting(false)

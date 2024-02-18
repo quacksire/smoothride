@@ -10,7 +10,7 @@ export type Post = {
     voteCount: number;
     image?: string;
     created_at?: string;
-    agency?: string;
+    agency?: string | null;
 }
 
 import exp from 'constants';
@@ -107,6 +107,10 @@ id	author	vote_count	title	description	image	created_at	agency
 
     if (image) {
         img = JSON.stringify(image)
+    }
+
+    if (!agency) {
+        agency = "NULL"
     }
 
     // add the post to the "posts" table in the database

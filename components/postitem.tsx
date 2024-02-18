@@ -6,29 +6,45 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { useState } from "react";
 import { updatePost } from "@/lib/db";
-import { Map } from "react-map-gl";
+import { Map, Marker } from "react-map-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function PostItem({ card} : { card: Post }) {
 
     const [upvoted, setUpvote] = useState(false);
     const [downvoted, setDownvote] = useState(false);
 
+    // Split the string into an array of strings
+    const coordinatesArray = card.agency?.split(",");
+    const username = card.author?.split("@")[0];
+
+    let lat: number = 0;
+    let long: number = 0;
+
+    // Parse each string into a number using parseFloat
+    if (coordinatesArray) {
+        const latitude = parseFloat(coordinatesArray[0]);
+        const longitude = parseFloat(coordinatesArray[1]);
+        lat = latitude;
+        long = longitude;
+    }
     return (
        <Card className="w-[700px] rounded-2xl">
                     <CardHeader>
                         <CardTitle>{card.title}</CardTitle>
-                        <CardDescription>reported by @{'cocklover69'}</CardDescription>
+                        <CardDescription>reported by {username}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <p>
                         {card.description}
                         </p>
-
-                        <div className="px-4 py-4 rounded-2xl">
-                            <Map  mapboxAccessToken="pk.eyJ1IjoiY2hpbGRxdWFjayIsImEiOiJjbHM2a2s2dXQwdmVzMmxxaHN0dXEzaGRsIn0.RVy7AMo3FChS0lsSkJcyPg"
-                                    mapStyle="mapbox://styles/mapbox/streets-v10"
-                                    initialViewState={{latitude:37.41079, longitude:-122.03106, zoom: 12 }}></Map>
-                        </div>
+                            <Map mapboxAccessToken="pk.eyJ1IjoiY2hpbGRxdWFjayIsImEiOiJjbHM2a2s2dXQwdmVzMmxxaHN0dXEzaGRsIn0.RVy7AMo3FChS0lsSkJcyPg"
+                                mapStyle="mapbox://styles/mapbox/navigation-day-v1"
+                                initialViewState={{latitude:lat, longitude:long, zoom: 12 }}
+                                style={{ width: "100%", height: "300px" }}
+                                >
+                                {lat ? <Marker latitude={lat} longitude={long}/> : null}
+                            </Map>
                     </CardContent>
                     <CardFooter className="flex justify-start">
                         <Button variant="ghost" onClick={() => {
